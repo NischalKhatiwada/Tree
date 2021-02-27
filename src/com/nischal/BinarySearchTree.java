@@ -4,6 +4,7 @@ public class BinarySearchTree {
 	TreeNode root;
 
 	public boolean searchBST(int data) {
+		System.out.println(root.data);
 		TreeNode t = root;
 		if (t != null) {
 			while (t != null) {
@@ -23,8 +24,8 @@ public class BinarySearchTree {
 	}
 
 	public static void main(String[] args) {
-		BinarySearchTree t= new BinarySearchTree();
-		t.searchBST(12);
+//		BinarySearchTree t= new BinarySearchTree();
+//		t.searchBST(12);
 		BinarySearchTree tree = new BinarySearchTree();
 		tree.root = new TreeNode(15);
 		tree.root.left = new TreeNode(10);
