@@ -55,21 +55,60 @@ public class DepthFirstSearch {
 				if (curr != null) {
 					stackedNode.push(curr);
 					curr = curr.left;
-				}else {
-					TreeNode temp= stackedNode.peek().right;
-					if(temp!=null) {
-						curr=temp;
-					}else {
-						temp=stackedNode.pop();
-						System.out.print(temp.data+"  " );
-						while(!stackedNode.isEmpty()&&temp==stackedNode.peek().right) {
-							temp=stackedNode.pop();
-							System.out.print(temp.data+"  ");
+				} else {
+					TreeNode temp = stackedNode.peek().right;
+					if (temp != null) {
+						curr = temp;
+					} else {
+						temp = stackedNode.pop();
+						System.out.print(temp.data + "  ");
+						while (!stackedNode.isEmpty() && temp == stackedNode.peek().right) {
+							temp = stackedNode.pop();
+							System.out.print(temp.data + "  ");
 						}
-							
+
 					}
 				}
 			}
+		}
+	}
+
+	public void deleteByMerging(int data) {
+		TreeNode p = root, prev = null;
+		while (p != null && p.data != data) {
+			prev = p;
+			if (p.data < data) {
+				p = p.right;
+			} else {
+				p = p.left;
+			}
+		}
+		TreeNode node = p, temp;
+		if (p != null && p.data == data) {
+			if (node.right == null) {
+				node = node.left;
+
+			} else if (node.left == null) {
+				node = node.right;
+			} else {
+				temp = node.left;
+				while (temp.right != null) {
+					temp = temp.right;
+				}
+				temp.right = node.right;
+				node = node.left;
+			}
+			if (p == root) {
+				root = node;
+			} else if (prev.left == p) {
+				prev.left = node;
+			} else {
+				prev.right = node;
+			}
+		} else if (root != null) {
+			System.out.println("Element not founfd in  tree");
+		} else {
+			System.out.println("Tree is empty");
 		}
 	}
 
@@ -90,5 +129,8 @@ public class DepthFirstSearch {
 		tree.preorderTraversal();
 		System.out.println("Post Order traversal");
 		tree.postOrderTraversal();
+		tree.deleteByMerging(10);
+		System.out.println();
+		tree.inorderTravesal();
 	}
 }
