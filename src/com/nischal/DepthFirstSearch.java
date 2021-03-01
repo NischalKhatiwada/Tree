@@ -87,7 +87,6 @@ public class DepthFirstSearch {
 		if (p != null && p.data == data) {
 			if (node.right == null) {
 				node = node.left;
-
 			} else if (node.left == null) {
 				node = node.right;
 			} else {
@@ -97,6 +96,51 @@ public class DepthFirstSearch {
 				}
 				temp.right = node.right;
 				node = node.left;
+			}
+			if (p == root) {
+				root = node;
+			} else if (prev.left == p) {
+				prev.left = node;
+			} else {
+				prev.right = node;
+			}
+		} else if (root != null) {
+			System.out.println("Element not founfd in  tree");
+		} else {
+			System.out.println("Tree is empty");
+		}
+	}
+
+	public void deletionByCopying(int data) {
+		TreeNode p = root, prev = null;
+		while (p != null && p.data != data) {
+			prev = p;
+			if (p.data < data) {
+				p = p.right;
+			} else {
+				p = p.left;
+			}
+		}
+
+		TreeNode node = p, temp;
+		if (p != null && p.data == data) {
+			if (node.right == null) {
+				node = node.left;
+			} else if (node.left == null) {
+				node = node.right;
+			} else {
+				temp = node.left;
+				TreeNode previous= node;
+				while (temp.right != null) {
+					previous=temp;
+					temp = temp.right;
+				}
+				node.data = temp.data; 
+				if (previous == node)
+					previous.left = temp.left;
+				else 
+					previous.right = temp.left;
+				
 			}
 			if (p == root) {
 				root = node;
@@ -129,8 +173,10 @@ public class DepthFirstSearch {
 		tree.preorderTraversal();
 		System.out.println("Post Order traversal");
 		tree.postOrderTraversal();
-		tree.deleteByMerging(10);
+		tree.deletionByCopying(21);
 		System.out.println();
 		tree.inorderTravesal();
+		tree.preorderTraversal();
+		tree.postOrderTraversal();
 	}
 }
